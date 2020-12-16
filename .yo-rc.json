@@ -1,0 +1,15 @@
+{
+  "generator-videojs-plugin": {
+    "scope": "guaclive",
+    "name": "settings",
+    "description": "A settings plugin for the guac.live video.js player",
+    "author": "Thomas Lekanger <datagutt@lekanger.no>",
+    "license": "mit",
+    "pluginType": "advanced",
+    "css": true,
+    "docs": false,
+    "lang": true,
+    "precommit": true,
+    "prepush": false
+  }
+}
