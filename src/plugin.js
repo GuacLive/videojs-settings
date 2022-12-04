@@ -20,14 +20,15 @@ const defaults = {
   onPopout: () => { }
 };
 
-var ClickableComponent = videojs.getComponent('ClickableComponent');
-var MenuItem = videojs.getComponent('MenuItem');
-MenuItem.prototype.createEl = function (type, props, attrs) {
+const ClickableComponent = videojs.getComponent('ClickableComponent');
+const MenuItem = videojs.getComponent('MenuItem');
+
+MenuItem.prototype.createEl = function(type, props, attrs) {
   props = Object.assign({
     className: 'vjs-menu-item',
     innerHTML: '<span class="vjs-menu-item-label" data-i18n="' + this.options_.label + '">' +
       this.options_.label + '</span>',
-    tabIndex: -1,
+    tabIndex: -1
   }, props);
   return ClickableComponent.prototype.createEl('li', props, attrs);
 };
@@ -63,9 +64,10 @@ class Settings extends Plugin {
 
     function showInfoOverlay() {
       if (!player) {
-        return
+        return;
       }
-      var overlay = player.getChild('InfoOverlay');
+      const overlay = player.getChild('InfoOverlay');
+
       if (typeof overlay !== 'undefined') {
         overlay.toggle();
       }
@@ -88,23 +90,30 @@ class Settings extends Plugin {
 
       // Inserts the settings menu button in control bar
       const controlBar = player.controlBar;
+
       if (controlBar) {
         player.controlBar.settingsButton = controlBar.addChild('SettingsButton', this.options);
         const before = controlBar.getChild(options.before);
+
         if (before) {
           controlBar.el().insertBefore(player.controlBar.settingsButton.el(), before.el());
-        }
-        else {
-          controlBar.el().append(player.controlBar.settingsButton.el())
+        } else {
+          controlBar.el().append(player.controlBar.settingsButton.el());
         }
       }
 
-      if (this.options.info) this.player.addChild('InfoOverlay');
+      if (this.options.info) {
+        this.player.addChild('InfoOverlay');
+      }
       this.player.addChild('PopupMenu', this.options);
 
-      if (this.options.report) this.player.on('guac-report', this.options.onReport.bind(this))
-      if (this.options.popout) this.player.on('guac-popout', this.options.onPopout.bind(this))
-      this.player.on('guac-info-overlay', showInfoOverlay.bind(this))
+      if (this.options.report) {
+        this.player.on('guac-report', this.options.onReport.bind(this));
+      }
+      if (this.options.popout) {
+        this.player.on('guac-popout', this.options.onPopout.bind(this));
+      }
+      this.player.on('guac-info-overlay', showInfoOverlay.bind(this));
     });
   }
 }
