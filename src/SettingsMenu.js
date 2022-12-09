@@ -19,7 +19,9 @@ export class SettingsMenu extends Menu {
     });
   }
   createEl() {
-    var el = videojs.dom.createEl("div", { className: "vjs-menu" });
+    var el = Component.prototype.createEl.call(this, "div", {
+      className: "vjs-menu",
+    });
     el.setAttribute("role", "presentation");
     return el;
   }

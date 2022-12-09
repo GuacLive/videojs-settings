@@ -18,7 +18,7 @@ class SubMenu extends Menu {
     this.update();
   }
   createEl() {
-    var el = videojs.dom.createEl("div", {
+    var el = Component.prototype.createEl.call(this, "div", {
       className: "vjs-menu-content",
     });
     el.setAttribute("role", "menu");
