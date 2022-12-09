@@ -9,11 +9,8 @@ class ExtendedSubMenu extends SubMenu {
   title = "";
   addToMain = true;
   menuItems = [];
-  constructor(player, options, parent) {
-    SubMenu.call(this, player, options, parent);
-  }
   createEl() {
-    var el = Component.prototype.createEl.call(this, "div", {
+    var el = videojs.dom.createEl("div", {
       className: "vjs-menu-content",
     });
     el.setAttribute("role", "menu");

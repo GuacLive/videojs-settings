@@ -9,10 +9,10 @@ class QualityMenuItem extends MenuItem {
       { selectable: true, selected: options.active || false },
       options
     );
-    MenuItem.call(this, player, options);
+    super(player, options);
   }
   handleClick(event) {
-    MenuItem.prototype.handleClick.call(this, event);
+    super.handleClick.call(this, event);
     this.player().trigger("qualityRequested", this.options_.source);
   }
 }
@@ -24,7 +24,7 @@ class QualitySubMenu extends SubMenu {
   sources = [];
   currentSource = "";
   constructor(player, options, parent) {
-    SubMenu.call(this, player, options, parent);
+    super(player, options, parent);
     var _this = this;
     this.title = player.localize("Quality");
 
