@@ -48,6 +48,9 @@ class InfoOverlay extends Overlay {
         units: "sec",
         title: player.localize("Duration"),
         get(p) {
+          if (p.duration() === Infinity || p.duration() === NaN) {
+            return "--";
+          }
           return round(p.duration());
         },
       },
