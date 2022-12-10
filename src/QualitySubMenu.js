@@ -21,10 +21,9 @@ videojs.registerComponent("QualityMenuItem", QualityMenuItem);
 class QualitySubMenu extends SubMenu {
   className = "vjs-quality-submenu";
   title = "Quality";
-  sources = [];
-  currentSource = "";
   constructor(player, options, parent) {
     super(player, options, parent);
+    this.addClass(this.className);
     var _this = this;
     this.title = player.localize("Quality");
 

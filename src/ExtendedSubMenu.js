@@ -8,7 +8,6 @@ class ExtendedSubMenu extends SubMenu {
   className = "vjs-select-value-submenu";
   title = "";
   addToMain = true;
-  menuItems = [];
   createEl() {
     var el = Component.prototype.createEl.call(this, "div", {
       className: "vjs-menu-content",
