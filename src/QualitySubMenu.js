@@ -21,6 +21,7 @@ videojs.registerComponent("QualityMenuItem", QualityMenuItem);
 class QualitySubMenu extends SubMenu {
   className = "vjs-quality-submenu";
   title = "Quality";
+  addToMain = true;
   constructor(player, options, parent) {
     super(player, options, parent);
     this.addClass(this.className);
@@ -57,6 +58,8 @@ class QualitySubMenu extends SubMenu {
         this.update();
       }.bind(this)
     );
+    this.createMenuItem();
+    this.createTitleItem();
   }
   createItems() {
     this.player()
