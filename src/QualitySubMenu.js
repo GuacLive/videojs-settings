@@ -70,14 +70,16 @@ class QualitySubMenu extends SubMenu {
           source: source,
         });
         console.log(item);
-        if (item.options_.active) {
+        if (item.options_.active && this.menuItem && this.menuItem.minorLabel) {
           this.menuItem.minorLabel.innerHTML = this.localize(source.label);
         }
         this.items.push(item);
       });
   }
   updateCurrentSource(event, source) {
-    this.menuItem.minorLabel.innerHTML = this.localize(source.label);
+    if (this.menuItem && this.menuItem.minorLabel) {
+      this.menuItem.minorLabel.innerHTML = this.localize(source.label);
+    }
     this.currentSource = source.src;
     this.update();
   }
