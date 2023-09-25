@@ -1,10 +1,10 @@
-'use strict';
-import '@hola.org/videojs-utils';
+"use strict";
+import "@hola.org/videojs-utils";
 
-import videojs from 'video.js';
-import {version as VERSION} from '../package.json';
+import videojs from "video.js";
+import { version as VERSION } from "../package.json";
 
-const Plugin = videojs.getPlugin('plugin');
+const Plugin = videojs.getPlugin("plugin");
 
 // Default options for the plugin.
 const defaults = {
@@ -14,29 +14,36 @@ const defaults = {
   quality: true,
   debugging: true,
   about: true,
-  before: 'fullscreenToggle',
-  poweredBy: 'GuacPlayer',
-  onReport: () => { },
-  onPopout: () => { }
+  before: "fullscreenToggle",
+  poweredBy: "GuacPlayer",
+  onReport: () => {},
+  onPopout: () => {},
 };
 
-const ClickableComponent = videojs.getComponent('ClickableComponent');
-const MenuItem = videojs.getComponent('MenuItem');
+const ClickableComponent = videojs.getComponent("ClickableComponent");
+const MenuItem = videojs.getComponent("MenuItem");
 
-MenuItem.prototype.createEl = function(type, props, attrs) {
-  props = Object.assign({
-    className: 'vjs-menu-item',
-    innerHTML: '<span class="vjs-menu-item-label" data-i18n="' + this.options_.label + '">' +
-      this.options_.label + '</span>',
-    tabIndex: -1
-  }, props);
-  return ClickableComponent.prototype.createEl('li', props, attrs);
+MenuItem.prototype.createEl = function (type, props, attrs) {
+  props = Object.assign(
+    {
+      className: "vjs-menu-item",
+      innerHTML:
+        '<span class="vjs-menu-item-label" data-i18n="' +
+        this.options_.label +
+        '">' +
+        this.options_.label +
+        "</span>",
+      tabIndex: -1,
+    },
+    props
+  );
+  return ClickableComponent.prototype.createEl.call(this, "li", props, attrs);
 };
 
-import './Overlay';
-import './InfoOverlay';
-import './PopupMenu';
-import './SettingsButton';
+import "./Overlay";
+import "./InfoOverlay";
+import "./PopupMenu";
+import "./SettingsButton";
 
 /**
  * An advanced Video.js plugin. For more information on the API
@@ -44,7 +51,6 @@ import './SettingsButton';
  * See: https://blog.videojs.com/feature-spotlight-advanced-plugins/
  */
 class Settings extends Plugin {
-
   /**
    * Create a Settings plugin instance.
    *
@@ -66,9 +72,9 @@ class Settings extends Plugin {
       if (!player) {
         return;
       }
-      const overlay = player.getChild('InfoOverlay');
+      const overlay = player.getChild("InfoOverlay");
 
-      if (typeof overlay !== 'undefined') {
+      if (typeof overlay !== "undefined") {
         overlay.toggle();
       }
     }
@@ -76,9 +82,12 @@ class Settings extends Plugin {
     this.options = videojs.mergeOptions(defaults, options);
 
     this.player.ready(() => {
-      this.player.addClass('vjs-settings');
+      this.player.addClass("vjs-settings");
 
-      if (!player.options().controls || !player.options().controls.settingsButton == false) {
+      if (
+        !player.options().controls ||
+        !player.options().controls.settingsButton == false
+      ) {
         return;
       }
 
@@ -92,28 +101,33 @@ class Settings extends Plugin {
       const controlBar = player.controlBar;
 
       if (controlBar) {
-        player.controlBar.settingsButton = controlBar.addChild('SettingsButton', this.options);
+        player.controlBar.settingsButton = controlBar.addChild(
+          "SettingsButton",
+          this.options
+        );
         const before = controlBar.getChild(options.before);
 
         if (before) {
-          controlBar.el().insertBefore(player.controlBar.settingsButton.el(), before.el());
+          controlBar
+            .el()
+            .insertBefore(player.controlBar.settingsButton.el(), before.el());
         } else {
           controlBar.el().append(player.controlBar.settingsButton.el());
         }
       }
 
       if (this.options.info) {
-        this.player.addChild('InfoOverlay');
+        this.player.addChild("InfoOverlay");
       }
-      this.player.addChild('PopupMenu', this.options);
+      this.player.addChild("PopupMenu", this.options);
 
       if (this.options.report) {
-        this.player.on('guac-report', this.options.onReport.bind(this));
+        this.player.on("guac-report", this.options.onReport.bind(this));
       }
       if (this.options.popout) {
-        this.player.on('guac-popout', this.options.onPopout.bind(this));
+        this.player.on("guac-popout", this.options.onPopout.bind(this));
       }
-      this.player.on('guac-info-overlay', showInfoOverlay.bind(this));
+      this.player.on("guac-info-overlay", showInfoOverlay.bind(this));
     });
   }
 }
@@ -125,6 +139,6 @@ Settings.defaultState = {};
 Settings.VERSION = VERSION;
 
 // Register the plugin with video.js.
-videojs.registerPlugin('settings', Settings);
+videojs.registerPlugin("settings", Settings);
 
 export default Settings;
